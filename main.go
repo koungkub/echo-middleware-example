@@ -42,6 +42,11 @@ func main() {
 		fmt.Println("routing")
 		return c.JSON(200, c.Response().Header().Get(echo.HeaderXRequestID))
 	})
+	
+	e.GET("/a", echo.WrapHandler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		w.Write([]byte("test"))
+	})))
 
 	log.Fatal(e.Start(":1323"))
 }
